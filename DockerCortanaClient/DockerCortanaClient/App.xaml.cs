@@ -49,7 +49,7 @@ namespace DockerCortanaClient
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 
 #if DEBUG
@@ -86,6 +86,10 @@ namespace DockerCortanaClient
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+
+            var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///DockerCortanaCommands.xml"));
+            await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
+
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -112,6 +116,50 @@ namespace DockerCortanaClient
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            // Was the app activated by a voice command?
+            if (args.Kind != Windows.ApplicationModel.Activation.ActivationKind.VoiceCommand)
+                return;
+
+            var commandArgs = args as Windows.ApplicationModel.Activation.VoiceCommandActivatedEventArgs;
+
+            var speechRecognitionResult = commandArgs.Result;
+
+            // Get the name of the voice command and the text spoken
+            string voiceCommandName = speechRecognitionResult.RulePath[0];
+            string textSpoken = speechRecognitionResult.Text;
+            // The commandMode is either "voice" or "text", and it indicates how the voice command was entered by the user.
+            // Apps should respect "text" mode by providing feedback in a silent form.
+            
+            string commandMode = speechRecognitionResult.SemanticInterpretation.Properties["commandMode"].First();
+            string navigationParameterString = null;
+
+            switch (voiceCommandName)
+            {
+                case "showLogs":
+                    // Access the value of the {destination} phrase in the voice command
+                    string container = speechRecognitionResult.SemanticInterpretation.Properties["container"][0];
+                    // Create a navigation parameter string to pass to the page
+                    navigationParameterString = string.Format("{0}|{1}|{2}|{3}",
+                                    voiceCommandName, commandMode, textSpoken, container);
+                    break;
+                default:
+                    break;
+            }
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame == null)
+            {
+                // App needs to create a new Frame, not shown
+            }
+
+            if (!rootFrame.Navigate(typeof(MainPage), navigationParameterString))
+            {
+                throw new Exception("Failed to create voice command page");
+            }
         }
     }
 }

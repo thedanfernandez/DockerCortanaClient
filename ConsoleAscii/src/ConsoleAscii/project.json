@@ -8,7 +8,7 @@
 
   "dependencies": {
     "System.Diagnostics.Tracing": "4.0.20-beta-22807",
-    "System.Diagnostics.Process": "4.0.0"
+    "System.Diagnostics.Process": "4.0.0-beta-22816"
 
   },
 
@@ -21,4 +21,3 @@
   }
 
 }
-

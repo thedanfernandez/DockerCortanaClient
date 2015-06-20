@@ -22,7 +22,7 @@ namespace ConsoleAscii
             //Configure processes
             Process p = new Process();
 
-            var start = new ProcessStartInfo("jp2a", "http://blogs.msdn.com/blogfiles/danielfe/WindowsLiveWriter/ThatKingCharlesSpanielEnglishToySpanieli_E6BE/582207017103_0_ALB%5B1%5D.jpg");
+            var start = new ProcessStartInfo("jp2a", "http://dockerconimagehost.azurewebsites.net/dockerswarm.jpg");
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
             p.StartInfo = start;

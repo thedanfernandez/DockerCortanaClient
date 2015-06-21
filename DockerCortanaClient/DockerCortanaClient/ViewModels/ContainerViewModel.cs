@@ -18,6 +18,5 @@ namespace DockerCortanaClient.ViewModels
             set { ImageName = value; }
         }
         public string Description { get; set; }
-        public ObservableCollection<LogEntryViewModel> Logs { get; set; }
     }
 }

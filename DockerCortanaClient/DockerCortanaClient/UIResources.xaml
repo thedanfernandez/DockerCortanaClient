@@ -44,4 +44,12 @@
     <Style TargetType="Border" x:Key="ListBorder">
         <Setter Property="Background" Value="LightGray"/>
     </Style>
+    <Style TargetType="StackPanel" x:Key="LogPanel">
+        <Setter Property="Background" Value="Black"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="LogEntry">
+        <Setter Property="Foreground" Value="LightGreen"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
 </ResourceDictionary>

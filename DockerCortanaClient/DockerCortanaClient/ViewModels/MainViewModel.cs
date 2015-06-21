@@ -12,6 +12,6 @@ namespace DockerCortanaClient.ViewModels
     {
         public ObservableCollection<IListItem> List { get; set; }
         public IHeaderItem Header { get; set; }
-        public ContainerViewModel ActiveContainer { get; set; }
+        public ObservableCollection<LogEntryViewModel> Logs { get; set; }
     }
 }

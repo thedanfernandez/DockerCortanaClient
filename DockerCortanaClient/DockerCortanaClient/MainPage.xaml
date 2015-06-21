@@ -18,7 +18,11 @@
             <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderBorder}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderBorder}">
             <StackPanel Orientation="Vertical" DataContext="{Binding Header}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource HeaderMainText}"></TextBlock>
@@ -29,10 +33,7 @@
                 <TextBlock Text="{Binding Description}" Style="{StaticResource HeaderSubText}"></TextBlock>
             </StackPanel>
         </Border>
-        <SplitView Grid.Row="1" IsPaneOpen="True">
-            <SplitView.Pane>
-                <RelativePanel>
-                        <ItemsControl ItemsSource="{Binding List}">
+                        <ItemsControl ItemsSource="{Binding List}" Grid.Row="1" Grid.Column="0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel/>
@@ -52,32 +53,24 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                </RelativePanel>
-            </SplitView.Pane>
-            <RelativePanel>
-                <Pivot>
-                    <PivotItem Header="Info">
-                        <Border Background="Blue"/>
-                    </PivotItem>
-                    <PivotItem Header="Logs">
-                        <ItemsControl ItemsSource="{Binding ActiveContainer.Logs}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Text}"></TextBlock>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </PivotItem>
-                    <PivotItem Header="Settings">
-                        <Border Background="Red"/>
-                    </PivotItem>
-                </Pivot>
-            </RelativePanel>
-        </SplitView>
+        <Pivot Grid.Row="1" Grid.Column="1">
+            <PivotItem Header="Logs">
+                <ItemsControl ItemsSource="{Binding Logs}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Style="{StaticResource LogPanel}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Text}" Style="{StaticResource LogEntry}"></TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </PivotItem>
+            <PivotItem Header="Settings">
+                <Border Background="White"/>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

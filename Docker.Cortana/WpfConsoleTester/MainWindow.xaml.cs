@@ -30,7 +30,7 @@ namespace WpfConsoleTester
         DockerCortanaClient dc;
 
 
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private async void info_Click(object sender, RoutedEventArgs e)
         {
             var result = await dc.DockerInfo();
             textBox1.Text += "Containers:" + result.Containers + Environment.NewLine;
@@ -38,8 +38,18 @@ namespace WpfConsoleTester
 
         private async void run_click(object sender, RoutedEventArgs e)
         {
-            var result = await dc.DockerRun("redis");
-            textBox1.Text = "new container id:" + result; 
+            var result = await dc.DockerRun("consoleascii");
+            textBox1.Text += "new container id:" + result;
+
+            //if (result.Warnings !=null)
+            //{
+            //    foreach (var item in result.Warnings)
+            //    {
+            //        textBox1.Text += item + Environment.NewLine;
+            //    }
+
+            //}
+
 
         }
 
@@ -52,12 +62,12 @@ namespace WpfConsoleTester
             }
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
+        private void showLogs_Click(object sender, RoutedEventArgs e)
         {
             //var result = await dc.ShowLogs()
         }
 
-        private void button3_Click(object sender, RoutedEventArgs e)
+        private void login_Click(object sender, RoutedEventArgs e)
         {
             dc = new DockerCortanaClient(txtHost.Text);
         }

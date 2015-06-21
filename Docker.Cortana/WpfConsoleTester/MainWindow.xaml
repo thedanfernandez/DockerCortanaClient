@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="button" Content="Info" HorizontalAlignment="Left" Margin="169,66,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button" Content="Info" HorizontalAlignment="Left" Margin="169,66,0,0" VerticalAlignment="Top" Width="75" Click="info_Click"/>
         <Button x:Name="button1" Content="Run" HorizontalAlignment="Left" Margin="169,106,0,0" VerticalAlignment="Top" Width="75" Click="run_click"/>
         <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="148" Margin="19,163,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="489"/>
         <Button x:Name="getcontainers" Content="getcontainers" HorizontalAlignment="Left" Margin="277,66,0,0" VerticalAlignment="Top" Width="75" Click="getcontainers_Click"/>
-        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="277,106,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="277,106,0,0" VerticalAlignment="Top" Width="75" Click="showLogs_Click"/>
         <TextBox x:Name="txtHost" HorizontalAlignment="Left" Height="23" Margin="38,22,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="359"/>
-        <Button x:Name="button3" Content="Login" HorizontalAlignment="Left" Margin="419,21,0,0" VerticalAlignment="Top" Width="75" Click="button3_Click"/>
+        <Button x:Name="button3" Content="Login" HorizontalAlignment="Left" Margin="419,21,0,0" VerticalAlignment="Top" Width="75" Click="login_Click"/>
 
     </Grid>
 </Window>

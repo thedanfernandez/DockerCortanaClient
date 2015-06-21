@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace Docker.Cortana
 {
-    public class DockerCortanaClient : IDockerCortanaClient
+    public class DockerCortanaClient 
     {
 
         private DockerClient client;
@@ -41,19 +41,40 @@ namespace Docker.Cortana
         }
 
 
-        public async Task<CreateContainerResponse> DockerRun(string imageName)
+        public async Task<string> DockerRun(string imageName)
         {
-            var runParams = new DotNet.Models.CreateContainerParameters();
-            //runParams.Config.Tty = true;                    
+            //            docker create
+            // if miss - 404 on API
+            //    docker pull imagename
+            //docker create
+            //docker start
 
-           return await client.Containers.CreateContainerAsync(runParams);
+
+            var runParams = new DotNet.Models.CreateContainerParameters();
+            
+            Config y = new Config();
+            runParams.Config = y;
+
+            runParams.Config.Tty = true;
+            runParams.Config.AttachStderr = true;
+            runParams.Config.AttachStdout = true;
+            
+            
+            runParams.Config.Image = imageName;
+            
+
+            var result =  await client.Containers.CreateContainerAsync(runParams);
+            var hostconfig = new HostConfig();
+
+            await client.Containers.StartContainerAsync(result.Id, hostconfig);
+            return result.Id; 
 
         }
 
         public async Task<IList<ContainerListResponse>> DockerGetContainers()
         {
             var containerParams = new ListContainersParameters();
-            containerParams.All = true;
+            containerParams.All = false;
             
             var response = await client.Containers.ListContainersAsync(containerParams);
             return response; 

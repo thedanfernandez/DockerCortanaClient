@@ -52,6 +52,7 @@ namespace DockerCortanaClient
                 viewModel.List.Add(new ContainerViewModel
                 {
                     Name = container.Names.First(),
+                    Id = container.Id,
                     ImageName = container.Image,
                     Description = container.Status
                 });
@@ -79,6 +80,11 @@ namespace DockerCortanaClient
             mTimer.Start();
 
             //viewModel.ActiveContainer = viewModel.List.First((i) => i.Name == parts[0]) as ContainerViewModel;
+
+        }
+
+        public void Container_Click()
+        {
 
         }
 
@@ -111,6 +117,7 @@ namespace DockerCortanaClient
                     viewModel.List.Insert(0, new ContainerViewModel
                     {
                         Name = container.Names.First(),
+                        Id = container.Id,
                         ImageName = container.Image,
                         Description = container.Status
                     });

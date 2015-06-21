@@ -33,7 +33,8 @@
                 <TextBlock Text="{Binding Description}" Style="{StaticResource HeaderSubText}"></TextBlock>
             </StackPanel>
         </Border>
-                        <ItemsControl ItemsSource="{Binding List}" Grid.Row="1" Grid.Column="0">
+        <ScrollViewer  Grid.Row="1" Grid.Column="0" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+                        <ItemsControl ItemsSource="{Binding List}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel/>
@@ -53,8 +54,10 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+        </ScrollViewer>
         <Pivot Grid.Row="1" Grid.Column="1">
             <PivotItem Header="Logs">
+                <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollMode="Auto" Margin="0 0 0 10">
                 <ItemsControl ItemsSource="{Binding Logs}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -67,6 +70,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                </ScrollViewer>
             </PivotItem>
             <PivotItem Header="Settings">
                 <Border Background="White"/>

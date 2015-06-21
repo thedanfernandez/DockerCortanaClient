@@ -57,5 +57,10 @@ namespace DockerCortanaClient
             if (viewModel.ActiveContainer.Logs.Count > MAX_LOG_ENTRIES)
                 viewModel.ActiveContainer.Logs.RemoveAt(0);
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+          
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
 	<CommandSet xml:lang="en-us" Name="DockerCortanaCommandSet_en-us">
+    <CommandPrefix> Docker, </CommandPrefix>
 		<Example> show logs for moby </Example>
 
 		<Command Name="showLogs">

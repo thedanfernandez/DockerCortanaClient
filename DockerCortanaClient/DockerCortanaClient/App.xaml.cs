@@ -143,8 +143,8 @@ namespace DockerCortanaClient
                     // Access the value of the {destination} phrase in the voice command
                     string container = speechRecognitionResult.SemanticInterpretation.Properties["container"][0];
                     // Create a navigation parameter string to pass to the page
-                    navigationParameterString = string.Format("{0}|{1}|{2}|{3}",
-                                    voiceCommandName, commandMode, textSpoken, container);
+                    navigationParameterString = string.Format("{0}|{1}",
+                                    voiceCommandName, container);
                     break;
                 default:
                     break;
@@ -153,7 +153,13 @@ namespace DockerCortanaClient
 
             if (rootFrame == null)
             {
-                // App needs to create a new Frame, not shown
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
             }
 
             if (!rootFrame.Navigate(typeof(MainPage), navigationParameterString))

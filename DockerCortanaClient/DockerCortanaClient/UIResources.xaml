@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DockerCortanaClient">
+    <Style TargetType="TextBlock" x:Key="HeaderMainText">
+        <Setter Property="FontFamily" Value="Segoe UI Light"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="Foreground" Value="#3399FF"/>
+        <Setter Property="Margin" Value="10 5 5 0"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="HeaderSubText">
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Margin" Value="10 5 0 5"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="HeaderSecondaryText">
+        <Setter Property="FontFamily" Value="Segoe UI Light"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Margin" Value="0 15 0 0"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ListMainText">
+        <Setter Property="FontFamily" Value="Segoe UI Light"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="#3399FF"/>
+        <Setter Property="Margin" Value="10 5 3 0"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ListSubText">
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Margin" Value="10 5 0 0"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ListSecondaryText">
+        <Setter Property="FontFamily" Value="Segoe UI Light"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Margin" Value="0 10 0 0"/>
+    </Style>
+    <Style TargetType="Border" x:Key="HeaderBorder">
+        <Setter Property="Background" Value="LightGray"/>
+    </Style>
+    <Style TargetType="Border" x:Key="ListBorder">
+        <Setter Property="Background" Value="LightGray"/>
+    </Style>
+</ResourceDictionary>

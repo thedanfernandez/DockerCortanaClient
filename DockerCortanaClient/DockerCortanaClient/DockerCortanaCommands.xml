@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
+	<CommandSet xml:lang="en-us" Name="DockerCortanaCommandSet_en-us">
+		<Example> show logs for moby </Example>
+
+		<Command Name="showLogs">
+			<Example> show logs for moby</Example>
+			<ListenFor> show logs for {container} </ListenFor>
+			<Feedback> showing logs for {container} </Feedback>
+			<Navigate />
+		</Command>
+		<PhraseList Label="container">
+			<Item> jack </Item>
+		</PhraseList>
+	</CommandSet>
+</VoiceCommands>

@@ -139,7 +139,7 @@ namespace DockerCortanaClient
 
             switch (voiceCommandName)
             {
-                case "showLogs":
+                case "runContainer":
                     // Access the value of the {destination} phrase in the voice command
                     string container = speechRecognitionResult.SemanticInterpretation.Properties["container"][0];
                     // Create a navigation parameter string to pass to the page

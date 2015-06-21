@@ -27,21 +27,21 @@ namespace Docker.Cortana
         public string DockerInfo()
         {
             throw new NotImplementedException(); 
-            Process p = new Process();
+            //Process p = new Process();
 
-            var start = new ProcessStartInfo("cmd.exe", "docker --tls info");
-            start.UseShellExecute = false;
-            start.RedirectStandardOutput = true;
-            p.StartInfo = start;
+            //var start = new ProcessStartInfo("cmd.exe", "docker --tls info");
+            //start.UseShellExecute = false;
+            //start.RedirectStandardOutput = true;
+            //p.StartInfo = start;
 
-            //Start!
-            p.Start();
+            ////Start!
+            //p.Start();
 
-            //Get output written to standard out as a string
-            string output = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
+            ////Get output written to standard out as a string
+            //string output = p.StandardOutput.ReadToEnd();
+            //p.WaitForExit();
 
-            return output; 
+            //return output; 
 
         }
 

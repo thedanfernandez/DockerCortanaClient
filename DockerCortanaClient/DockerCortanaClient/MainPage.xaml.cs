@@ -1,4 +1,6 @@
-﻿using DockerCortanaClient.ViewModels;
+﻿using Docker.Cortana;
+using Docker.DotNet;
+using DockerCortanaClient.ViewModels;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -27,27 +29,12 @@ namespace DockerCortanaClient
     {
         DispatcherTimer mTimer = new DispatcherTimer();
         MainViewModel viewModel = new MainViewModel();
+        DockerVoiceClient mClient = new DockerVoiceClient("tcp://dockerconhack.cloudapp.net:2376");
         int index = 0;
         const int MAX_LOG_ENTRIES = 10;
         public MainPage()
         {
             this.InitializeComponent();
-            //Since I don't know how depenency would work with pages, here's temp code:
-            
-            viewModel.Header = new HostViewModel
-            {
-                Name = "dockercon-web.westus.cloudapp.azure.com",
-                OS = "Ubuntu 14.10",
-                Description = "3.16.0-38-generic - CPUs:2 RAM:6.807G"
-            };
-            viewModel.List = new ObservableCollection<IListItem>(new ObservableCollection<ContainerViewModel>());
-            viewModel.List.Add(new ContainerViewModel { Name = "focused_davinci", ImageName = "partsunlimited:latest"});
-            viewModel.ActiveContainer = viewModel.List.First() as ContainerViewModel;
-            viewModel.ActiveContainer.Logs = new ObservableCollection<LogEntryViewModel>();
-            this.DataContext = viewModel;
-            mTimer.Tick += mTimer_Tick;
-            mTimer.Interval = TimeSpan.FromMilliseconds(100);
-            mTimer.Start();
         }
 
         private void mTimer_Tick(object sender, object e)
@@ -58,9 +45,40 @@ namespace DockerCortanaClient
                 viewModel.ActiveContainer.Logs.RemoveAt(0);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-          
+            viewModel.List = new ObservableCollection<IListItem>(new ObservableCollection<ContainerViewModel>());
+            var containers = await mClient.DockerGetContainers();
+            foreach (var container in containers)
+                viewModel.List.Add(new ContainerViewModel
+                {
+                    Name = container.Names.First(),
+                    ImageName = container.Image,
+                    Description = container.Status
+                });
+
+            //Since I don't know how depenency would work with pages, here's temp code:
+
+            viewModel.Header = new HostViewModel
+            {
+                Name = "dockerconhack.cloudapp.net:2367",
+                OS = "Ubuntu 14.10",
+                Description = "3.16.0-38-generic - CPUs:2 RAM:6.807G"
+            };
+
+            viewModel.ActiveContainer = viewModel.List.First() as ContainerViewModel;
+            viewModel.ActiveContainer.Logs = new ObservableCollection<LogEntryViewModel>();
+            this.DataContext = viewModel;
+            mTimer.Tick += mTimer_Tick;
+            mTimer.Interval = TimeSpan.FromMilliseconds(100);
+            mTimer.Start();
+
+            if (e == null)
+                return;
+            string[] parts = e.Parameter.ToString().Split('|');
+
+            //viewModel.ActiveContainer = viewModel.List.First((i) => i.Name == parts[0]) as ContainerViewModel;
+
         }
     }
 }

@@ -2,16 +2,18 @@
 <VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
 	<CommandSet xml:lang="en-us" Name="DockerCortanaCommandSet_en-us">
     <CommandPrefix> Docker, </CommandPrefix>
-		<Example> show logs for moby </Example>
+		<Example> run moby </Example>
 
-		<Command Name="showLogs">
-			<Example> show logs for moby</Example>
-			<ListenFor> show logs for {container} </ListenFor>
-			<Feedback> showing logs for {container} </Feedback>
+		<Command Name="runContainer">
+			<Example> run moby</Example>
+			<ListenFor> run {container} </ListenFor>
+			<Feedback> running container {container} </Feedback>
 			<Navigate />
 		</Command>
+    
 		<PhraseList Label="container">
-			<Item> jack </Item>
+			<Item> moby </Item>
 		</PhraseList>
 	</CommandSet>
+  
 </VoiceCommands>

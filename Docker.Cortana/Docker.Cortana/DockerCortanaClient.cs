@@ -19,15 +19,10 @@ namespace Docker.Cortana
         private DockerClient client;
         private string _host;
 
-        #region Password
-        //TODO: Find a better place for this
-        private string password = "DockerR0cks!"; 
-        #endregion
-
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="host">Format: tcp://dockercon-web.westus.cloudapp.azure.com:2376</param>
+        /// <param name="host">Format: tcp://vm.cloudapp.net:2376</param>
         public DockerCortanaClient(string host)
         {
             _host = host;

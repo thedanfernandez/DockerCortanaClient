@@ -27,7 +27,7 @@ namespace WpfConsoleTester
             InitializeComponent();
         }
 
-        DockerCortanaClient dc = new DockerCortanaClient("tcp://dockerconhack.cloudapp.net:2376");
+        DockerCortanaClient dc;
 
 
         private async void button_Click(object sender, RoutedEventArgs e)
@@ -55,6 +55,11 @@ namespace WpfConsoleTester
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             //var result = await dc.ShowLogs()
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            dc = new DockerCortanaClient(txtHost.Text);
         }
     }
 }

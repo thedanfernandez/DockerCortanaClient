@@ -26,6 +26,7 @@ namespace Docker.Cortana
 
         public string DockerInfo()
         {
+            throw new NotImplementedException(); 
             Process p = new Process();
 
             var start = new ProcessStartInfo("cmd.exe", "docker --tls info");

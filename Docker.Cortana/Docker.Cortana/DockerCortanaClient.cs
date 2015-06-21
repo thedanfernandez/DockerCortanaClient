@@ -20,7 +20,7 @@ namespace Docker.Cortana
         private string _host;
 
         /// <summary>
-        /// 
+        /// Only works on insecure Docker for now
         /// </summary>
         /// <param name="host">Format: tcp://vm.cloudapp.net:2376</param>
         public DockerCortanaClient(string host)
@@ -28,6 +28,7 @@ namespace Docker.Cortana
             _host = host;
             SetupDockerClient();
         }
+
 
         private void SetupDockerClient()
         {
@@ -40,7 +41,11 @@ namespace Docker.Cortana
 
         }
 
-
+        /// <summary>
+        /// imageName must be on server already otherwise expect a 404
+        /// </summary>
+        /// <param name="imageName">name of the image, ex: redis</param>
+        /// <returns></returns>
         public async Task<string> DockerRun(string imageName)
         {
             //            docker create
@@ -71,6 +76,10 @@ namespace Docker.Cortana
 
         }
 
+        /// <summary>
+        /// Returns a list of running containers, ex: docker ps
+        /// </summary>
+        /// <returns></returns>
         public async Task<IList<ContainerListResponse>> DockerGetContainers()
         {
             var containerParams = new ListContainersParameters();
@@ -80,6 +89,19 @@ namespace Docker.Cortana
             return response; 
         }
 
+        /// <summary>
+        /// Returns information about containers for a given host with option to show stopped containers, ex:docker ps -a
+        /// </summary>
+        /// <param name="all">if true, returns stopped containers</param>
+        /// <returns></returns>
+        public async Task<IList<ContainerListResponse>> DockerGetContainers(bool all)
+        {
+            var containerParams = new ListContainersParameters();
+            containerParams.All = all;
+
+            var response = await client.Containers.ListContainersAsync(containerParams);
+            return response;
+        }
 
         public async Task<CreateContainerResponse> DockerRun(string imageName, int hostPort, int containerPort)
         {
@@ -110,9 +132,9 @@ namespace Docker.Cortana
             return await client.Containers.CreateContainerAsync(runParams);
 
         }
+
         /// <summary>
-        /// CancellationTokenSource cancellation = new CancellationTokenSource();
-        /// Stream stream = ShowLogs(id, cancellation)
+        /// Returns a log stream for Standard error and standard output
         /// </summary>
         /// <param name="id">Container ID</param>
         /// <param name="cancellationToken">CancellationTokenSource</param>
@@ -120,12 +142,18 @@ namespace Docker.Cortana
         public async Task<Stream> ShowLogs(string id, System.Threading.CancellationToken cancellationToken)
         {
             var logParams = new GetContainerLogsParameters();
-            logParams.Follow = true;
+            //logParams.Follow = true;
+            logParams.Stderr = true;
+            logParams.Stdout = true; 
 
             var Stream = await client.Containers.GetContainerLogsAsync(id, logParams, cancellationToken);
             return Stream; 
         }
 
+        /// <summary>
+        /// Used for diagnostic info, ex: docker info
+        /// </summary>
+        /// <returns>system info</returns>
         public async Task<SystemInfoResponse> DockerInfo()
         {
             SystemInfoResponse response = new SystemInfoResponse();

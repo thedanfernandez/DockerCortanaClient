@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,14 +64,36 @@ namespace WpfConsoleTester
             }
         }
 
-        private void showLogs_Click(object sender, RoutedEventArgs e)
+        private async void showLogs_Click(object sender, RoutedEventArgs e)
         {
-            //var result = await dc.ShowLogs()
+            //use if you're following and want to stop following
+            CancellationToken token = new CancellationToken(false);
+
+            var containers = await dc.DockerGetContainers();
+
+            //use ID from first container
+            Stream s = await dc.ShowLogs(containers[0].Id, token);
+            StreamReader sr = new StreamReader(s);
+
+            string log = "";
+            while (!sr.EndOfStream)
+            {
+                log = await sr.ReadToEndAsync();
+                Debug.WriteLine(log);
+            }
+
+            textBox1.Text = log; 
+            
         }
 
         private void login_Click(object sender, RoutedEventArgs e)
         {
             dc = new DockerCortanaClient(txtHost.Text);
+        }
+
+        private void btnLogs_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

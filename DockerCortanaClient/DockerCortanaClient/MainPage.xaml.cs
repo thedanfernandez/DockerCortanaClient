@@ -49,7 +49,7 @@ namespace DockerCortanaClient
             mCachedIds.Clear();
             foreach (var container in containers)
             {
-                viewModel.List.Add(new ContainerViewModel
+                viewModel.List.Add(new ContainerViewModel(viewModel)
                 {
                     Name = container.Names.First(),
                     Id = container.Id,
@@ -114,7 +114,7 @@ namespace DockerCortanaClient
                 if (!mCachedIds.Contains(container.Id))
                 {
                     newId = container.Id;
-                    viewModel.List.Insert(0, new ContainerViewModel
+                    viewModel.List.Insert(0, new ContainerViewModel(viewModel)
                     {
                         Name = container.Names.First(),
                         Id = container.Id,
@@ -144,6 +144,12 @@ namespace DockerCortanaClient
                     }
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ContainerViewModel vm = (ContainerViewModel)((Button)sender).DataContext;
+            vm.ShowLog(vm.Id);
         }
     }
 }

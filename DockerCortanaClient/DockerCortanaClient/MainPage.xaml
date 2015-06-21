@@ -34,20 +34,22 @@
             </StackPanel>
         </Border>
         <ScrollViewer  Grid.Row="1" Grid.Column="0" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
-                        <ItemsControl ItemsSource="{Binding List}">
-                            <ItemsControl.ItemsPanel>
+            <ItemsControl ItemsSource="{Binding List}" x:Name="ItemList" >
+                <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
                                             <TextBlock Text="{Binding Name}" Style="{StaticResource ListMainText}"></TextBlock>
                                             <TextBlock Style="{StaticResource ListSecondaryText}">(</TextBlock>
                                             <TextBlock Text="{Binding SecondaryName}" Style="{StaticResource ListSecondaryText}"></TextBlock>
                                             <TextBlock Style="{StaticResource ListSecondaryText}">)</TextBlock>
+                                <Button FontSize="10" Click="Button_Click">>></Button>
                                         </StackPanel>
                                         <TextBlock Text="{Binding Description}" Style="{StaticResource ListSubText}"></TextBlock>
                                     </StackPanel>
